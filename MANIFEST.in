@@ -1,0 +1,11 @@
+include zero_copy_file_input/zero_copy_file_input.min.js
+include zero_copy_file_input/zero_copy_file_input.min.js.map
+include zero_copy_file_input/async-*.js
+include zero_copy_file_input/async-*.js.map
+include zero_copy_file_input/*-shared.js
+include zero_copy_file_input/*-shared.js.map
+include zero_copy_file_input/metadata.json
+include zero_copy_file_input/package-info.json
+include README.md
+include LICENSE
+include package.json
