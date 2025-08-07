@@ -59,7 +59,8 @@ ZeroCopyFileInput.defaultProps = {
   disabled: false,
   style: {},
   className: "",
-  value: "",
+  // value: "",
+  value: [],
 };
 
 ZeroCopyFileInput.propTypes = {
@@ -85,7 +86,13 @@ ZeroCopyFileInput.propTypes = {
    * Fake-path string the browser puts in <input>.  Serves only as a
    * lightweight signal – the real bytes stay in the DOM FileList.
    */
-  value: PropTypes.string,
+  //   value: PropTypes.string,
+
+  /**
+   * Array of filenames strings the browser puts in <input>.  Serves only as a
+   * lightweight signal – the real bytes stay in the DOM FileList.
+   */
+  value: PropTypes.arrayOf(PropTypes.string),
 
   /**
    * Timestamp updated on every selection.  Use this as `Input` to

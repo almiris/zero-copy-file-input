@@ -21,7 +21,7 @@ Keyword arguments:
 - `style` (Dict; optional): Inline CSS
 - `timestamp` (Real; optional): Timestamp updated on every selection.  Use this as `Input` to
 guarantee Dash callbacks fire even if the user chooses the same file.
-- `value` (String; optional): Fake-path string the browser puts in <input>.  Serves only as a
+- `value` (Array of Strings; optional): Array of filenames strings the browser puts in <input>.  Serves only as a
 lightweight signal – the real bytes stay in the DOM FileList.
 """
 function zerocopyfileinput(; kwargs...)

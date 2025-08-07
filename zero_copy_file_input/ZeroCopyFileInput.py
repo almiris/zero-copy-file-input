@@ -50,9 +50,10 @@ Keyword arguments:
     guarantee Dash callbacks fire even if the user chooses the same
     file.
 
-- value (string; default ""):
-    Fake-path string the browser puts in <input>.  Serves only as a
-    lightweight signal – the real bytes stay in the DOM FileList."""
+- value (list of strings; optional):
+    Array of filenames strings the browser puts in <input>.  Serves
+    only as a lightweight signal – the real bytes stay in the DOM
+    FileList."""
     _children_props = []
     _base_nodes = ['children']
     _namespace = 'zero_copy_file_input'
@@ -67,7 +68,7 @@ Keyword arguments:
         disabled: typing.Optional[bool] = None,
         style: typing.Optional[typing.Any] = None,
         className: typing.Optional[str] = None,
-        value: typing.Optional[str] = None,
+        value: typing.Optional[typing.Sequence[str]] = None,
         timestamp: typing.Optional[NumberType] = None,
         **kwargs
     ):
