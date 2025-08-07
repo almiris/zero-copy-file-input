@@ -29,11 +29,11 @@ export default function ZeroCopyFileInput(props) {
 
   const onChange = (e) => {
     // lightweight trigger for Python callbacks
-    // const fakePath = e.target.value;          // e.g. "C:\\fakepath\\video.mp4"
+    const fakePath = e.target.value;          // e.g. "C:\\fakepath\\video.mp4"
     if (setProps) {
       setProps({
-        // value: fakePath,
-        value: multiple ? Array.from(e.target.files).map(f => f.name) : e.target.files[0].name,
+        value: fakePath,
+        // value: multiple ? Array.from(e.target.files).map(f => f.name) : e.target.files[0].name,
         timestamp: Date.now(),            // forces a new event each time
       });
     }
