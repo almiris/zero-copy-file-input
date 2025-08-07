@@ -17,15 +17,15 @@ Keyword arguments:
 - `accept` (String; optional): Comma-separated list of MIME types / extensions (e.g. "image/*,.zip")
 - `className` (String; optional): CSS class
 - `disabled` (Bool; optional): Disable the input
-- `filesSelected` (Real; optional): Timestamp updated on every selection.  Use this as `Input` to
-guarantee Dash callbacks fire even if the user chooses the same file.
 - `multiple` (Bool; optional): Allow selecting more than one file
 - `style` (Dict; optional): Inline CSS
+- `timestamp` (Real; optional): Timestamp updated on every selection.  Use this as `Input` to
+guarantee Dash callbacks fire even if the user chooses the same file.
 - `value` (String; optional): Fake-path string the browser puts in <input>.  Serves only as a
 lightweight signal – the real bytes stay in the DOM FileList.
 """
 function zerocopyfileinput(; kwargs...)
-        available_props = Symbol[:id, :accept, :className, :disabled, :filesSelected, :multiple, :style, :value]
+        available_props = Symbol[:id, :accept, :className, :disabled, :multiple, :style, :timestamp, :value]
         wild_props = Symbol[]
         return Component("zerocopyfileinput", "ZeroCopyFileInput", "zero_copy_file_input", available_props, wild_props; kwargs...)
 end

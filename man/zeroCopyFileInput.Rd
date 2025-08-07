@@ -11,7 +11,7 @@ ZeroCopyFileInput – a thin Dash wrapper around <input type="file">.  Because i
 
 \usage{
 zeroCopyFileInput(id=NULL, accept=NULL, className=NULL, disabled=NULL,
-filesSelected=NULL, multiple=NULL, style=NULL, value=NULL)
+multiple=NULL, style=NULL, timestamp=NULL, value=NULL)
 }
 
 \arguments{
@@ -23,12 +23,12 @@ filesSelected=NULL, multiple=NULL, style=NULL, value=NULL)
 
 \item{disabled}{Logical. Disable the input}
 
-\item{filesSelected}{Numeric. Timestamp updated on every selection.  Use this as `Input` to
-guarantee Dash callbacks fire even if the user chooses the same file.}
-
 \item{multiple}{Logical. Allow selecting more than one file}
 
 \item{style}{Named list. Inline CSS}
+
+\item{timestamp}{Numeric. Timestamp updated on every selection.  Use this as `Input` to
+guarantee Dash callbacks fire even if the user chooses the same file.}
 
 \item{value}{Character. Fake-path string the browser puts in <input>.  Serves only as a
 lightweight signal – the real bytes stay in the DOM FileList.}

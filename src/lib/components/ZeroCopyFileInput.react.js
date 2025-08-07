@@ -22,18 +22,19 @@ export default function ZeroCopyFileInput(props) {
      * Props managed by Dash
      */
     value,
-    filesSelected,
+    timestamp,
     setProps,
     ...extra
   } = props;
 
   const onChange = (e) => {
     // lightweight trigger for Python callbacks
-    const fakePath = e.target.value;          // e.g. "C:\\fakepath\\video.mp4"
+    // const fakePath = e.target.value;          // e.g. "C:\\fakepath\\video.mp4"
     if (setProps) {
       setProps({
-        value: fakePath,
-        filesSelected: Date.now(),            // forces a new event each time
+        // value: fakePath,
+        value: Array.from(e.target.files).map(f => f.name),
+        timestamp: Date.now(),            // forces a new event each time
       });
     }
   };
@@ -90,7 +91,7 @@ ZeroCopyFileInput.propTypes = {
    * Timestamp updated on every selection.  Use this as `Input` to
    * guarantee Dash callbacks fire even if the user chooses the same file.
    */
-  filesSelected: PropTypes.number,
+  timestamp: PropTypes.number,
 
   /** Set by Dash to report prop changes back to Python */
   setProps: PropTypes.func,

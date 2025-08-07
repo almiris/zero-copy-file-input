@@ -42,13 +42,13 @@ Keyword arguments:
 - disabled (boolean; default False):
     Disable the input.
 
-- filesSelected (number; optional):
+- multiple (boolean; default False):
+    Allow selecting more than one file.
+
+- timestamp (number; optional):
     Timestamp updated on every selection.  Use this as `Input` to
     guarantee Dash callbacks fire even if the user chooses the same
     file.
-
-- multiple (boolean; default False):
-    Allow selecting more than one file.
 
 - value (string; default ""):
     Fake-path string the browser puts in <input>.  Serves only as a
@@ -68,12 +68,12 @@ Keyword arguments:
         style: typing.Optional[typing.Any] = None,
         className: typing.Optional[str] = None,
         value: typing.Optional[str] = None,
-        filesSelected: typing.Optional[NumberType] = None,
+        timestamp: typing.Optional[NumberType] = None,
         **kwargs
     ):
-        self._prop_names = ['id', 'accept', 'className', 'disabled', 'filesSelected', 'multiple', 'style', 'value']
+        self._prop_names = ['id', 'accept', 'className', 'disabled', 'multiple', 'style', 'timestamp', 'value']
         self._valid_wildcard_attributes =            []
-        self.available_properties = ['id', 'accept', 'className', 'disabled', 'filesSelected', 'multiple', 'style', 'value']
+        self.available_properties = ['id', 'accept', 'className', 'disabled', 'multiple', 'style', 'timestamp', 'value']
         self.available_wildcard_properties =            []
         _explicit_args = kwargs.pop('_explicit_args')
         _locals = locals()
