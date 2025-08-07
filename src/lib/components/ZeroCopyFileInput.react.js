@@ -33,7 +33,7 @@ export default function ZeroCopyFileInput(props) {
     if (setProps) {
       setProps({
         // value: fakePath,
-        value: multiple ? Array.from(e.target.files).map(f => f.name) : e.target.files.length ? e.target.files[0].name : "",
+        value: multiple ? Array.from(e.target.files).map(f => f.name) : e.target.files.length ? e.target.files[0].name : null,
         timestamp: Date.now(),            // forces a new event each time
       });
     }
