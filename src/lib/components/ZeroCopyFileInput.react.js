@@ -54,7 +54,7 @@ export default function ZeroCopyFileInput(props) {
       className={className}
       style={style}
       onChange={onChange}
-      onClick={onClick}
+    //   onClick={onClick}
       {...extra} // data-* or aria-* props
     />
   );
