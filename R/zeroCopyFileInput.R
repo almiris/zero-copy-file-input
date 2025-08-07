@@ -1,9 +1,9 @@
 # AUTO GENERATED FILE - DO NOT EDIT
 
 #' @export
-zeroCopyFileInput <- function(id=NULL, label=NULL, value=NULL) {
+zeroCopyFileInput <- function(id=NULL, accept=NULL, className=NULL, disabled=NULL, filesSelected=NULL, multiple=NULL, style=NULL, value=NULL) {
     
-    props <- list(id=id, label=label, value=value)
+    props <- list(id=id, accept=accept, className=className, disabled=disabled, filesSelected=filesSelected, multiple=multiple, style=style, value=value)
     if (length(props) > 0) {
         props <- props[!vapply(props, is.null, logical(1))]
     }
@@ -11,7 +11,7 @@ zeroCopyFileInput <- function(id=NULL, label=NULL, value=NULL) {
         props = props,
         type = 'ZeroCopyFileInput',
         namespace = 'zero_copy_file_input',
-        propNames = c('id', 'label', 'value'),
+        propNames = c('id', 'accept', 'className', 'disabled', 'filesSelected', 'multiple', 'style', 'value'),
         package = 'zeroCopyFileInput'
         )
 

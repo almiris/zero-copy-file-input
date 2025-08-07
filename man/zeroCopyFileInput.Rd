@@ -6,19 +6,32 @@
 \title{ZeroCopyFileInput component}
 
 \description{
-ExampleComponent is an example component. It takes a property, `label`, and displays it. It renders an input with the property `value` which is editable by the user.
+ZeroCopyFileInput – a thin Dash wrapper around <input type="file">.  Because it never Base-64-encodes the payload, you can stream multi-GB files directly from the browser (e.g. to presigned S3 URLs) without crashing the tab.  Use a client-side callback or assets JS to grab the real File object:  document.getElementById(id).files[0]
 }
 
 \usage{
-zeroCopyFileInput(id=NULL, label=NULL, value=NULL)
+zeroCopyFileInput(id=NULL, accept=NULL, className=NULL, disabled=NULL,
+filesSelected=NULL, multiple=NULL, style=NULL, value=NULL)
 }
 
 \arguments{
-\item{id}{Character. The ID used to identify this component in Dash callbacks.}
+\item{id}{Character. Dash component id}
 
-\item{label}{Character. A label that will be printed when this component is rendered.}
+\item{accept}{Character. Comma-separated list of MIME types / extensions (e.g. "image/*,.zip")}
 
-\item{value}{Character. The value displayed in the input.}
+\item{className}{Character. CSS class}
+
+\item{disabled}{Logical. Disable the input}
+
+\item{filesSelected}{Numeric. Timestamp updated on every selection.  Use this as `Input` to
+guarantee Dash callbacks fire even if the user chooses the same file.}
+
+\item{multiple}{Logical. Allow selecting more than one file}
+
+\item{style}{Named list. Inline CSS}
+
+\item{value}{Character. Fake-path string the browser puts in <input>.  Serves only as a
+lightweight signal – the real bytes stay in the DOM FileList.}
 }
 
 \value{named list of JSON elements corresponding to React.js properties and their values}

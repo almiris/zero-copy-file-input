@@ -1,63 +1,97 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+/* src/lib/components/ZeroCopyFileInput.react.js */
+import React from "react";
+import PropTypes from "prop-types";
 
 /**
- * ExampleComponent is an example component.
- * It takes a property, `label`, and
- * displays it.
- * It renders an input with the property `value`
- * which is editable by the user.
+ * ZeroCopyFileInput – a thin Dash wrapper around <input type="file">.
+ *
+ * Because it never Base-64-encodes the payload, you can stream multi-GB
+ * files directly from the browser (e.g. to presigned S3 URLs) without
+ * crashing the tab.  Use a client-side callback or assets JS to grab the
+ * real File object:  document.getElementById(id).files[0]
  */
-const ZeroCopyFileInput = (props) => {
-    const {id, label, setProps, value} = props;
+export default function ZeroCopyFileInput(props) {
+  const {
+    id,
+    accept,
+    multiple,
+    disabled,
+    style,
+    className,
+    /**
+     * Props managed by Dash
+     */
+    value,
+    filesSelected,
+    setProps,
+    ...extra
+  } = props;
 
-    const handleInputChange = (e) => {
-        /*
-        * Send the new value to the parent component.
-        * setProps is a prop that is automatically supplied
-        * by dash's front-end ("dash-renderer").
-        * In a Dash app, this will update the component's
-        * props and send the data back to the Python Dash
-        * app server if a callback uses the modified prop as
-        * Input or State.
-        */
-        setProps({ value: e.target.value });
-    };
+  const onChange = (e) => {
+    // lightweight trigger for Python callbacks
+    const fakePath = e.target.value;          // e.g. "C:\\fakepath\\video.mp4"
+    if (setProps) {
+      setProps({
+        value: fakePath,
+        filesSelected: Date.now(),            // forces a new event each time
+      });
+    }
+  };
 
-    return (
-        <div id={id}>
-            ExampleComponent: {label}&nbsp;
-            <input
-                value={value}
-                onChange={handleInputChange}
-            />
-        </div>
-    );
+  return (
+    <input
+      id={id}
+      type="file"
+      accept={accept}
+      multiple={multiple}
+      disabled={disabled}
+      className={className}
+      style={style}
+      onChange={onChange}
+      {...extra}                              // data-* or aria-* props
+    />
+  );
 }
 
-ZeroCopyFileInput.defaultProps = {};
-
-ZeroCopyFileInput.propTypes = {
-    /**
-     * The ID used to identify this component in Dash callbacks.
-     */
-    id: PropTypes.string,
-
-    /**
-     * A label that will be printed when this component is rendered.
-     */
-    label: PropTypes.string.isRequired,
-
-    /**
-     * The value displayed in the input.
-     */
-    value: PropTypes.string,
-
-    /**
-     * Dash-assigned callback that should be called to report property changes
-     * to Dash, to make them available for callbacks.
-     */
-    setProps: PropTypes.func
+ZeroCopyFileInput.defaultProps = {
+  multiple: false,
+  disabled: false,
+  style: {},
+  className: "",
+  value: "",
 };
 
-export default ZeroCopyFileInput;
+ZeroCopyFileInput.propTypes = {
+  /** Dash component id */
+  id: PropTypes.string,
+
+  /** Comma-separated list of MIME types / extensions (e.g. "image/*,.zip") */
+  accept: PropTypes.string,
+
+  /** Allow selecting more than one file */
+  multiple: PropTypes.bool,
+
+  /** Disable the input */
+  disabled: PropTypes.bool,
+
+  /** Inline CSS */
+  style: PropTypes.object,
+
+  /** CSS class */
+  className: PropTypes.string,
+
+  /**
+   * Fake-path string the browser puts in <input>.  Serves only as a
+   * lightweight signal – the real bytes stay in the DOM FileList.
+   */
+  value: PropTypes.string,
+
+  /**
+   * Timestamp updated on every selection.  Use this as `Input` to
+   * guarantee Dash callbacks fire even if the user chooses the same file.
+   */
+  filesSelected: PropTypes.number,
+
+  /** Set by Dash to report prop changes back to Python */
+  setProps: PropTypes.func,
+};

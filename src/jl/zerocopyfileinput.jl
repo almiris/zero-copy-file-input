@@ -6,18 +6,26 @@ export zerocopyfileinput
     zerocopyfileinput(;kwargs...)
 
 A ZeroCopyFileInput component.
-ExampleComponent is an example component.
-It takes a property, `label`, and
-displays it.
-It renders an input with the property `value`
-which is editable by the user.
+ZeroCopyFileInput – a thin Dash wrapper around <input type="file">.
+
+Because it never Base-64-encodes the payload, you can stream multi-GB
+files directly from the browser (e.g. to presigned S3 URLs) without
+crashing the tab.  Use a client-side callback or assets JS to grab the
+real File object:  document.getElementById(id).files[0]
 Keyword arguments:
-- `id` (String; optional): The ID used to identify this component in Dash callbacks.
-- `label` (String; required): A label that will be printed when this component is rendered.
-- `value` (String; optional): The value displayed in the input.
+- `id` (String; optional): Dash component id
+- `accept` (String; optional): Comma-separated list of MIME types / extensions (e.g. "image/*,.zip")
+- `className` (String; optional): CSS class
+- `disabled` (Bool; optional): Disable the input
+- `filesSelected` (Real; optional): Timestamp updated on every selection.  Use this as `Input` to
+guarantee Dash callbacks fire even if the user chooses the same file.
+- `multiple` (Bool; optional): Allow selecting more than one file
+- `style` (Dict; optional): Inline CSS
+- `value` (String; optional): Fake-path string the browser puts in <input>.  Serves only as a
+lightweight signal – the real bytes stay in the DOM FileList.
 """
 function zerocopyfileinput(; kwargs...)
-        available_props = Symbol[:id, :label, :value]
+        available_props = Symbol[:id, :accept, :className, :disabled, :filesSelected, :multiple, :style, :value]
         wild_props = Symbol[]
         return Component("zerocopyfileinput", "ZeroCopyFileInput", "zero_copy_file_input", available_props, wild_props; kwargs...)
 end
