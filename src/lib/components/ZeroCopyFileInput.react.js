@@ -33,7 +33,7 @@ export default function ZeroCopyFileInput(props) {
     if (setProps) {
       setProps({
         // value: fakePath,
-        value: Array.from(e.target.files).map(f => f.name),
+        value: multiple ? Array.from(e.target.files).map(f => f.name) : e.target.files.length ? e.target.files[0].name : "",
         timestamp: Date.now(),            // forces a new event each time
       });
     }
@@ -59,8 +59,7 @@ ZeroCopyFileInput.defaultProps = {
   disabled: false,
   style: {},
   className: "",
-  // value: "",
-  value: [],
+  value: "",
 };
 
 ZeroCopyFileInput.propTypes = {
@@ -83,16 +82,13 @@ ZeroCopyFileInput.propTypes = {
   className: PropTypes.string,
 
   /**
-   * Fake-path string the browser puts in <input>.  Serves only as a
+   * Filename string (or array of filenames strings if multiple is true) the browser puts in <input>.  Serves only as a
    * lightweight signal – the real bytes stay in the DOM FileList.
    */
-  //   value: PropTypes.string,
-
-  /**
-   * Array of filenames strings the browser puts in <input>.  Serves only as a
-   * lightweight signal – the real bytes stay in the DOM FileList.
-   */
-  value: PropTypes.arrayOf(PropTypes.string),
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
 
   /**
    * Timestamp updated on every selection.  Use this as `Input` to

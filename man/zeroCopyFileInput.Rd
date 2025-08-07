@@ -30,7 +30,7 @@ multiple=NULL, style=NULL, timestamp=NULL, value=NULL)
 \item{timestamp}{Numeric. Timestamp updated on every selection.  Use this as `Input` to
 guarantee Dash callbacks fire even if the user chooses the same file.}
 
-\item{value}{List of characters. Array of filenames strings the browser puts in <input>.  Serves only as a
+\item{value}{Character | list of characters. Filename string (or array of filenames strings if multiple is true) the browser puts in <input>.  Serves only as a
 lightweight signal – the real bytes stay in the DOM FileList.}
 }
 
