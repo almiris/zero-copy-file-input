@@ -27,14 +27,19 @@ export default function ZeroCopyFileInput(props) {
     ...extra
   } = props;
 
+  const onClick = (e) => {
+    // Force-reset so Safari will report a change even after Cancel (Safari does not report a change but Chrome does)
+    e.target.value = null;
+  };
+
   const onChange = (e) => {
     // lightweight trigger for Python callbacks
-    const fakePath = e.target.value;          // e.g. "C:\\fakepath\\video.mp4"
+    // const fakePath = e.target.value; // e.g. "C:\\fakepath\\video.mp4"
     if (setProps) {
       setProps({
-        value: fakePath,
-        // value: multiple ? Array.from(e.target.files).map(f => f.name) : e.target.files[0].name,
-        timestamp: Date.now(),            // forces a new event each time
+        // value: fakePath,
+        value: multiple ? Array.from(e.target.files).map(f => f.name) : e.target.files[0].name,
+        timestamp: Date.now(), // forces a new event each time
       });
     }
   };
@@ -49,7 +54,8 @@ export default function ZeroCopyFileInput(props) {
       className={className}
       style={style}
       onChange={onChange}
-      {...extra}                              // data-* or aria-* props
+      onClick={onClick}
+      {...extra} // data-* or aria-* props
     />
   );
 }
