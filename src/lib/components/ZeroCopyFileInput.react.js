@@ -27,10 +27,10 @@ export default function ZeroCopyFileInput(props) {
     ...extra
   } = props;
 
-  const onClick = (e) => {
-    // Force-reset so Safari will report a change even after Cancel (Safari does not report a change but Chrome does)
-    e.target.value = null;
-  };
+//   const onClick = (e) => {
+//     // Force-reset so Safari will report a change even after Cancel (Safari does not report a change but Chrome does)
+//     e.target.value = null;
+//   };
 
   const onChange = (e) => {
     // lightweight trigger for Python callbacks
