@@ -27,11 +27,14 @@ export default function ZeroCopyFileInput(props) {
     ...extra
   } = props;
 
+// Unused because of the side effect with Chrome...
 //   const onClick = (e) => {
 //     // Force-reset so Safari will report a change even after Cancel (Safari does not report a change but Chrome does)
 //     e.target.value = null;
 //   };
 
+  const onClick = (e) => { e.target.value = null; };
+  
   const onChange = (e) => {
     // lightweight trigger for Python callbacks
     // const fakePath = e.target.value; // e.g. "C:\\fakepath\\video.mp4"
@@ -54,7 +57,7 @@ export default function ZeroCopyFileInput(props) {
       className={className}
       style={style}
       onChange={onChange}
-    //   onClick={onClick}
+      onClick={onClick}
       {...extra} // data-* or aria-* props
     />
   );
